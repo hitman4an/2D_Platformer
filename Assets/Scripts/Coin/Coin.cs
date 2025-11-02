@@ -8,6 +8,8 @@ public class Coin : MonoBehaviour
     private Animator _animator;
     private Collider2D _collider;
 
+    private int Collect = Animator.StringToHash(nameof(Collect));
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -19,7 +21,7 @@ public class Coin : MonoBehaviour
         if (collision.GetComponent<Player>())
         {
             _collider.enabled = false;
-            _animator.Play("Collect");
+            _animator.Play(Collect);
             CoinCollected?.Invoke();
         }
     }
