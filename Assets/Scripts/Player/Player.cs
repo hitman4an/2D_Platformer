@@ -8,35 +8,33 @@ public class Player : MonoBehaviour
     [SerializeField] private GroundChecker _groundChecker;
 
     private Rigidbody2D _rigidBody;
-    private Animator _animator;    
-    private MoveState _moveState;
-    private SpriteRenderer _sprite;
+    private Animator _animator;
+    private DirectionChanger _directionChanger;
+
+    private MoveState _moveState;    
     private bool _isGrounded = true;
 
-    public void Move()
+    public void Move(float axis)
     {
-        Vector2 direction = transform.right * Input.GetAxis("Horizontal");
-
-        _sprite.flipX = direction.x < 0;        
+        Vector3 direction = (transform.right * axis).normalized;
 
         if (_moveState != MoveState.Jump)
         {
             _moveState = MoveState.Run;
-            _animator.Play("Run");
+            _animator.Play(PlayerAnimationData.Run);
         }
-
-        _rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * _speed, _rigidBody.velocity.y);
+                
+        _directionChanger.ChangeDirection(direction.x);
+        _rigidBody.velocity = new Vector2(axis * _speed, _rigidBody.velocity.y);
     }
 
     public void Jump()
     {
         if (_isGrounded)
         {
-            Vector2 direction = (transform.right * Input.GetAxis("Horizontal")).normalized;            
-
             _rigidBody.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse); 
             _moveState = MoveState.Jump;
-            _animator.Play("Jump");
+            _animator.Play(PlayerAnimationData.Jump);
         }
     }
 
@@ -50,14 +48,14 @@ public class Player : MonoBehaviour
     {
         _moveState = MoveState.Idle;
         _rigidBody.velocity = new Vector2(0, _rigidBody.velocity.y);
-        _animator.Play("Idle");
+        _animator.Play(PlayerAnimationData.Idle);
     }
 
     private void Awake() {
         
         _animator = GetComponent<Animator>();
-        _rigidBody = GetComponent<Rigidbody2D>();
-        _sprite = GetComponent<SpriteRenderer>();
+        _rigidBody = GetComponent<Rigidbody2D>();        
+        _directionChanger = GetComponent<DirectionChanger>();
     }
 
     private void FixedUpdate()
@@ -66,7 +64,7 @@ public class Player : MonoBehaviour
 
         if (_isGrounded == false)
         {
-            _animator.Play("Jump");
+            _animator.Play(PlayerAnimationData.Jump);
         }
         else if (_rigidBody.velocity.y == 0 && _moveState == MoveState.Jump)
         {
@@ -78,7 +76,7 @@ public class Player : MonoBehaviour
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(_groundChecker.transform.position, _checkRadius);
 
-        _isGrounded = colliders.Length > 2;
+        _isGrounded = colliders.Length > 1;
     }
 
     enum MoveState
@@ -86,5 +84,12 @@ public class Player : MonoBehaviour
         Idle,
         Run,
         Jump
+    }
+
+    public static class PlayerAnimationData
+    {
+        public static readonly int Run = Animator.StringToHash(nameof(Run));
+        public static readonly int Jump = Animator.StringToHash(nameof(Jump));
+        public static readonly int Idle = Animator.StringToHash(nameof(Idle));
     }
 }
