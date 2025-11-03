@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
 {
-    [SerializeField] Coin _prefab;
+    [SerializeField] private Coin _prefab;
 
     private SpawnPoint[] _spawnPoints;
 

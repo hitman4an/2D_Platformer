@@ -4,7 +4,7 @@ public class PlayerFollower : MonoBehaviour
 {
     [SerializeField] private Transform _player;
 
-    private void Update()
+    private void LateUpdate()
     {
         Vector3 position = _player.position;
 

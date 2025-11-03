@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    [SerializeField] Coin _prefab;
+    [SerializeField] private Coin _prefab;
     [SerializeField] float _respawnDelay = 5f;
 
     private Coin _coin;
