@@ -16,7 +16,8 @@ public class Player : MonoBehaviour
 
     public void Move(float axis)
     {
-        Vector3 direction = (transform.right * axis).normalized;
+        Vector3 target = transform.position + Vector3.one * axis;
+        Vector3 direction = target - transform.position;
 
         if (_moveState != MoveState.Jump)
         {
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
             _animator.Play(PlayerAnimationData.Run);
         }
                 
-        _directionChanger.ChangeDirection(direction.x);
+        _directionChanger.ChangeDirection(direction);
         _rigidBody.velocity = new Vector2(axis * _speed, _rigidBody.velocity.y);
     }
 
