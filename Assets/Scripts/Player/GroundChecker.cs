@@ -37,9 +37,4 @@ public class GroundChecker : MonoBehaviour
             yield return wait;
         }
     }
-
-    private void Update()
-    {
-        Grounded();
-    }
 }

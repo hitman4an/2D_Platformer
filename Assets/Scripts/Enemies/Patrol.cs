@@ -6,7 +6,7 @@ public class Patrol : MonoBehaviour
     [SerializeField] private Waypoint[] _waypoints;
     [SerializeField] private float _patrolWait = 5f;
     
-    private Move _mover;
+    private EnemyMover _mover;
 
     private int _currentWaypoint = 0;
     private float _waypointDistanceRadius = 1f;    
@@ -14,10 +14,21 @@ public class Patrol : MonoBehaviour
 
     private void Awake()
     {
-        _mover = GetComponent<Move>();
+        _mover = GetComponent<EnemyMover>();
     }
 
     private void Update()
+    {
+        checkDestination();
+    }
+
+    public void StartPatrol()
+    {
+        _target = _waypoints[_currentWaypoint].transform.position;
+        _mover.GoToTarget(_target);
+    }
+
+    private void checkDestination()
     {
         float distance = (_target - transform.position).sqrMagnitude;
 
@@ -27,11 +38,5 @@ public class Patrol : MonoBehaviour
             _target = _waypoints[_currentWaypoint].transform.position;
             _mover.Wait(_target, _patrolWait);
         }
-    }
-
-    public void StartPatrol()
-    {
-        _target = _waypoints[_currentWaypoint].transform.position;
-        _mover.GoToTarget(_target);
     }
 }

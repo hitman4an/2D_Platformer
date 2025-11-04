@@ -6,14 +6,14 @@ public class InputService : MonoBehaviour
     private const string Horizontal = "Horizontal";
     private const string Jump = "Jump";
 
-    public event Action<float> MovingBtnPressed;
+    public event Action MovingBtnPressed;
     public event Action MovingBtnUp;
     public event Action JumpBtnDown;
 
     private void Update()
     {
         if (Input.GetButton(Horizontal))
-            MovingBtnPressed?.Invoke(Input.GetAxis(Horizontal));
+            MovingBtnPressed?.Invoke();
 
         if (Input.GetButtonDown(Jump))
             JumpBtnDown?.Invoke();

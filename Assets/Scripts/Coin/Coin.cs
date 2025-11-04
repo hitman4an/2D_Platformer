@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private const string CollectName = "Collect";
-    private const string IdleName = "Idle";
-    private const float RespawnDelay = 5f;
-    
-    private readonly int Collect = Animator.StringToHash(CollectName);
-    private readonly int Idle = Animator.StringToHash(IdleName);
+    private static readonly int Idle = CoinAnimator.PlayerAnimatorData.Params.Idle;
+    private static readonly int Collect = CoinAnimator.PlayerAnimatorData.Params.Collect;
 
-    private Animator _animator;
+    [SerializeField] private float _respawnDelay = 5f;
+
+    private CoinAnimator _animator;
     private Collider2D _collider;
 
     private Coroutine _coroutine;
 
-
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
+        _animator = GetComponent<CoinAnimator>();
         _collider = GetComponent<Collider2D>();
     }
 
@@ -32,15 +29,15 @@ public class Coin : MonoBehaviour
     public void Take()
     {
         _collider.enabled = false;
-        _animator.Play(Collect);
+        _animator.PlayAnimation(Collect);
         _coroutine = StartCoroutine(ShowWithDelay());
     }
 
     private IEnumerator ShowWithDelay()
     {
-        yield return new WaitForSeconds(RespawnDelay);
+        yield return new WaitForSeconds(_respawnDelay);
 
-        _animator.Play(Idle);
+        _animator.PlayAnimation(Idle);
         _collider.enabled = true;        
     }
 }

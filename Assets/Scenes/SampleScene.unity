@@ -869,11 +869,13 @@ GameObject:
   - component: {fileID: 711146551}
   - component: {fileID: 711146550}
   - component: {fileID: 711146549}
-  - component: {fileID: 711146548}
   - component: {fileID: 711146553}
+  - component: {fileID: 711146548}
   - component: {fileID: 711146554}
   - component: {fileID: 711146555}
   - component: {fileID: 711146556}
+  - component: {fileID: 711146558}
+  - component: {fileID: 711146557}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -893,10 +895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aecd47cab952ab249a5f851d19da448f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _jumpForce: 10
-  _checkRadius: 0.5
-  _inputService: {fileID: 69584269}
+  _groundChecker: {fileID: 1727946861}
 --- !u!70 &711146549
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1084,6 +1083,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2cbcfc5dadd8347aee6c9b3f3d1d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &711146557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711146546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44f9ab60f96f2fc40a706d896303ef89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
+  _inputService: {fileID: 69584269}
+--- !u!114 &711146558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711146546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df34b3f99de487e44ae63e854ca9c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpForce: 9
+  _inputService: {fileID: 69584269}
 --- !u!1 &714427445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,7 +1718,6 @@ MonoBehaviour:
   - {fileID: 1717025741}
   - {fileID: 348481172}
   - {fileID: 351651537}
-  _respawnDelay: 5
 --- !u!1 &1275804685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,7 +2089,7 @@ Transform:
   m_GameObject: {fileID: 1727946859}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.118, y: -0.449, z: 0}
+  m_LocalPosition: {x: 0.031, y: -0.484, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2117,8 +2143,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.182819, y: -0.40493307}
-  m_Size: {x: 0.44459027, y: 0.13195254}
+  m_Offset: {x: -0.3306615, y: -0.40493304}
+  m_Size: {x: 0.14890648, y: 0.13195254}
   m_Direction: 1
 --- !u!1001 &1736792511
 PrefabInstance:

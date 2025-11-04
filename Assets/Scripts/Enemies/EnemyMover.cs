@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class EnemyMover : MonoBehaviour
 {
     private DirectionChanger _directionChanger;
     private EnemyAnimator _animator;
