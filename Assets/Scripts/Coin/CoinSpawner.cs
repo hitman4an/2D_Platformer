@@ -1,15 +1,22 @@
+using System.Collections;
 using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private Coin _prefab;
+    [SerializeField] private SpawnPoint[] _spawnPoints;
+    [SerializeField] float _respawnDelay = 5f;
 
-    private SpawnPoint[] _spawnPoints;
+    private Coroutine _coroutine;
 
-    private void Awake()
+    private void OnEnable()
     {
-        _spawnPoints = GetComponentsInChildren<SpawnPoint>();
         SpawnCoins();
+    }
+    private void OnDisable()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
     }
 
     private void SpawnCoins()
@@ -19,7 +26,6 @@ public class CoinSpawner : MonoBehaviour
             foreach (SpawnPoint spawnPoint in _spawnPoints)
             {
                 Coin coin = Instantiate(_prefab, spawnPoint.transform);
-                spawnPoint.SetCoin(coin);
             }
         }
     }

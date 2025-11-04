@@ -7,11 +7,9 @@ public class CoinCollector : MonoBehaviour
 {
     private int _count = 0;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        Coin coin = other.GetComponent<Coin>();
-        
-        if (coin != null)
+        if (collider.TryGetComponent<Coin>(out Coin coin))
         {
             coin.Take();
             _count++;

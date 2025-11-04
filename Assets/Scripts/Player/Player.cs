@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         _inputService.MovingBtnPressed += Move;
         _inputService.JumpBtnDown += Jump;
         _inputService.MovingBtnUp += StopMove;
-        _groundChecker.IsGrounded += IsGrounded;
+        _groundChecker.OnGround += IsGrounded;
     }
 
     private void OnDisable()
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         _inputService.MovingBtnPressed -= Move;
         _inputService.JumpBtnDown -= Jump;
         _inputService.MovingBtnUp -= StopMove;
-        _groundChecker.IsGrounded -= IsGrounded;
+        _groundChecker.OnGround -= IsGrounded;
     }
 
     private void Move(float axis)

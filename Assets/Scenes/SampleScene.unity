@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 348481171}
   - component: {fileID: 348481172}
   m_Layer: 0
-  m_Name: SpawnPoint (3)
+  m_Name: SpawnPoint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 351651536}
   - component: {fileID: 351651537}
   m_Layer: 0
-  m_Name: SpawnPoint (4)
+  m_Name: SpawnPoint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1010,7 +1010,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 711146546}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3f66d33196e9fdb4aabb9e415946f913, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1033,8 +1033,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03301549, y: 0.041199863}
-  m_Size: {x: 0.99374247, y: 1.9063083}
+  m_Offset: {x: -0.03301549, y: 0.08656365}
+  m_Size: {x: 0.99374247, y: 1.8155807}
   m_Direction: 0
 --- !u!50 &711146550
 Rigidbody2D:
@@ -1791,6 +1791,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 9182908098544395709, guid: aee46aa5410482b4cbb55f78b45bced7, type: 3}
+  _spawnPoints:
+  - {fileID: 548817277}
+  - {fileID: 1077549864}
+  - {fileID: 1717025741}
+  - {fileID: 348481172}
+  - {fileID: 351651537}
 --- !u!1 &1275804685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,6 +2153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1727946860}
   - component: {fileID: 1727946861}
+  - component: {fileID: 1727946862}
   m_Layer: 0
   m_Name: GroundChecker
   m_TagString: Untagged
@@ -2163,7 +2170,7 @@ Transform:
   m_GameObject: {fileID: 1727946859}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.103, y: -0.887, z: 0}
+  m_LocalPosition: {x: 0.118, y: -0.428, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2182,6 +2189,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkRadius: 1
+--- !u!70 &1727946862
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727946859}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.182819, y: -0.40493307}
+  m_Size: {x: 0.44459027, y: 0.13195254}
+  m_Direction: 1
 --- !u!1001 &1736792511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2276,7 +2318,7 @@ GameObject:
   - component: {fileID: 1929205334}
   - component: {fileID: 1929205336}
   - component: {fileID: 1929205337}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,61 +6,32 @@ public class Patrol : MonoBehaviour
     [SerializeField] private Waypoint[] _waypoints;
     [SerializeField] private float _patrolWait = 5f;
     
-    private DirectionChanger _directionChanger;
-    private EnemyAnimator _animator;
+    private Move _mover;
 
     private int _currentWaypoint = 0;
-    private float _waypointDistanceRadius = 1f;
-    private bool _isMoving = true;
+    private float _waypointDistanceRadius = 1f;    
     private Vector3 _target;
-
-    private Coroutine _coroutine;
 
     private void Awake()
     {
-        _animator = GetComponent<EnemyAnimator>();
-        _directionChanger = GetComponent<DirectionChanger>();
-
-        _target = _waypoints[_currentWaypoint].transform.position;
-        _directionChanger.ChangeDirection(_target - transform.position);
-        _animator.SetWalking(true);
+        _mover = GetComponent<Move>();
     }
 
     private void Update()
     {
-        if (_isMoving)
+        float distance = (_target - transform.position).sqrMagnitude;
+
+        if (distance < _waypointDistanceRadius)
         {
-            float distance = (_target - transform.position).sqrMagnitude;
-
-            if (distance < _waypointDistanceRadius)
-            {
-                _currentWaypoint = ++_currentWaypoint % _waypoints.Length;
-                _coroutine = StartCoroutine(Wait());
-            }
-
-            transform.position = Vector3.MoveTowards(transform.position, _target, Time.deltaTime);
+            _currentWaypoint = ++_currentWaypoint % _waypoints.Length;
+            _target = _waypoints[_currentWaypoint].transform.position;
+            _mover.Wait(_target, _patrolWait);
         }
     }
 
-    private void OnDisable()
+    public void StartPatrol()
     {
-        if (_coroutine != null) 
-            StopCoroutine(_coroutine);
-    }
-
-    private IEnumerator Wait()
-    {
-        var wait = new WaitForSeconds(_patrolWait);
-
-        _isMoving = false;
-        _animator.SetWalking(false);
-
-        yield return wait;
-
-        _isMoving = true;
-        _animator.SetWalking(true);
         _target = _waypoints[_currentWaypoint].transform.position;
-        _directionChanger.ChangeDirection(_target - transform.position);
+        _mover.GoToTarget(_target);
     }
-    
 }
