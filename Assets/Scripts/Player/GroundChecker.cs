@@ -13,26 +13,26 @@ public class GroundChecker : MonoBehaviour
     [SerializeField] private float _checkRadius = 0.1f;
     [SerializeField] private LayerMask _layer;
 
-    public event Action<bool> OnGround;
+    public event Action<bool> Grounded;
 
     private Coroutine _coroutine;
 
     private void OnEnable()
     {
-        _coroutine = StartCoroutine(Grounded());
+        _coroutine = StartCoroutine(CheckGrounded());
     }
     private void OnDisable()
     {
         StopCoroutine(_coroutine);
     }
 
-    private IEnumerator Grounded()
+    private IEnumerator CheckGrounded()
     {
         while (enabled)
         {
             var wait = new WaitForSeconds(CheckDelay);
 
-            OnGround?.Invoke(Physics2D.OverlapCircle(transform.position, _checkRadius, _layer));
+            Grounded?.Invoke(Physics2D.OverlapCircle(transform.position, _checkRadius, _layer));
 
             yield return wait;
         }

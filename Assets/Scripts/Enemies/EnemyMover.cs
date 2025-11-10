@@ -3,17 +3,20 @@ using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
-    private DirectionChanger _directionChanger;
+    private RotationChanger _directionChanger;
     private EnemyAnimator _animator;
+    private Rigidbody2D _rigidBody;
 
     private Coroutine _coroutine;
     private Vector3 _target;
     private bool _isMoving;
+    private float _speed;
     
     private void Awake()
     {
-        _directionChanger = GetComponent<DirectionChanger>();
+        _directionChanger = GetComponent<RotationChanger>();
         _animator = GetComponent<EnemyAnimator>();
+        _rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void OnDisable()
@@ -24,17 +27,18 @@ public class EnemyMover : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Move()
     {
         if (_isMoving)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _target, Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
         }
     }
 
-    public void GoToTarget(Vector3 target)
+    public void GoToTarget(Vector3 target, float speed)
     {
-        _animator.SetWalking(true);
+        _speed = speed;
+        _animator.SetSpeed(_speed);
         _isMoving = true;
         _directionChanger.ChangeDirection(target - transform.position);
         _target = target;
@@ -42,7 +46,7 @@ public class EnemyMover : MonoBehaviour
 
     public void Wait(Vector3 nextTarget, float patrolWait)
     {
-        _animator.SetWalking(false);
+        _animator.SetSpeed(0);
         _isMoving = false;
         _coroutine = StartCoroutine(StayBeforeNextTarget(nextTarget, patrolWait));
     }
@@ -53,6 +57,6 @@ public class EnemyMover : MonoBehaviour
 
         yield return wait;
 
-        GoToTarget(nextTarget);
+        GoToTarget(nextTarget, _speed);
     }
 }

@@ -6,9 +6,9 @@ public class EnemyAnimator : MonoBehaviour
 {
     private Animator _animator;
 
-    public void SetWalking(bool value)
+    public void SetSpeed(float value)
     {
-        _animator.SetBool(PlayerAnimatorData.Params.IsWalking, value);
+        _animator.SetFloat(PlayerAnimatorData.Params.Speed, value);
     }
 
     private void Awake()
@@ -20,7 +20,7 @@ public class EnemyAnimator : MonoBehaviour
     {
         public static class Params
         {
-            public static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
+            public static readonly int Speed = Animator.StringToHash(nameof(Speed));
         }
     }
 }

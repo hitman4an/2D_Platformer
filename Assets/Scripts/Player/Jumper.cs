@@ -1,11 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Jumper : MonoBehaviour
 {
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private InputService _inputService;
+    [SerializeField] private float _jumpForce;    
 
     private PlayerAnimator _animator;    
     private Rigidbody2D _rigidBody;
@@ -18,21 +18,11 @@ public class Jumper : MonoBehaviour
         _player = GetComponent<Player>();
     }
 
-    private void OnEnable()
-    {
-        _inputService.JumpBtnDown += Jump;
-    }
-
-    private void OnDisable()
-    {
-        _inputService.JumpBtnDown += Jump;
-    }
-
-    private void Jump()
+    public void Jump()
     {
         if (_player.IsGrounded)
         {
-            _animator.SetSpeed(0);
+            _animator.SetSpeed(0);            
             _rigidBody.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
         }
     }

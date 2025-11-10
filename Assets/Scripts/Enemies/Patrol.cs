@@ -17,22 +17,20 @@ public class Patrol : MonoBehaviour
         _mover = GetComponent<EnemyMover>();
     }
 
-    private void Update()
+    public void StartPatrol(float speed)
     {
-        checkDestination();
+        if (_waypoints.Length > 0)
+        {
+            _target = _waypoints[_currentWaypoint].transform.position;
+            _mover.GoToTarget(_target, speed);
+        }
     }
 
-    public void StartPatrol()
-    {
-        _target = _waypoints[_currentWaypoint].transform.position;
-        _mover.GoToTarget(_target);
-    }
-
-    private void checkDestination()
+    public void CheckDestination()
     {
         float distance = (_target - transform.position).sqrMagnitude;
 
-        if (distance < _waypointDistanceRadius)
+        if (distance < _waypointDistanceRadius && _waypoints.Length > 0)
         {
             _currentWaypoint = ++_currentWaypoint % _waypoints.Length;
             _target = _waypoints[_currentWaypoint].transform.position;

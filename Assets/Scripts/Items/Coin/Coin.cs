@@ -1,13 +1,11 @@
 using System;
 using System.Collections;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Coin : GameItem
 {
-    private static readonly int Idle = CoinAnimator.PlayerAnimatorData.Params.Idle;
     private static readonly int Collect = CoinAnimator.PlayerAnimatorData.Params.Collect;
-
-    [SerializeField] private float _respawnDelay = 5f;
 
     private CoinAnimator _animator;
     private Collider2D _collider;
@@ -29,15 +27,6 @@ public class Coin : MonoBehaviour
     public void Take()
     {
         _collider.enabled = false;
-        _animator.PlayAnimation(Collect);
-        _coroutine = StartCoroutine(ShowWithDelay());
-    }
-
-    private IEnumerator ShowWithDelay()
-    {
-        yield return new WaitForSeconds(_respawnDelay);
-
-        _animator.PlayAnimation(Idle);
-        _collider.enabled = true;        
+        _animator.PlayAnimation(Collect);        
     }
 }

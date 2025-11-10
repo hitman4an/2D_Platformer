@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinCollector : MonoBehaviour
+public class Collector : MonoBehaviour
 {
+    public event Action<Potion> PotionTaken;
+    
     private int _count = 0;
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -14,5 +16,10 @@ public class CoinCollector : MonoBehaviour
             coin.Take();
             _count++;
         }
-    } 
+
+        if (collider.TryGetComponent<Potion>(out Potion potion))
+        {
+            PotionTaken?.Invoke(potion);
+        }
+    }
 }

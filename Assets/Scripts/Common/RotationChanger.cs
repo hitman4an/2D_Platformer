@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DirectionChanger : MonoBehaviour
+public class RotationChanger : MonoBehaviour
 {
     private Quaternion _rightRotation = new Quaternion(0, 0, 0, 0);
     private Quaternion _leftRotation = new Quaternion(0, 180, 0, 0);

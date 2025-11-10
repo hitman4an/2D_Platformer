@@ -6,11 +6,10 @@ public class PlayerMover : MonoBehaviour
 {
     private const string Horizontal = "Horizontal";
 
-    [SerializeField] private float _speed;
-    [SerializeField] private InputService _inputService;    
+    [SerializeField] private float _speed;      
 
     private PlayerAnimator _animator;
-    private DirectionChanger _directionChanger;
+    private RotationChanger _directionChanger;
     private Rigidbody2D _rigidBody;
     private Player _player;
         
@@ -18,40 +17,30 @@ public class PlayerMover : MonoBehaviour
     {
         _animator = GetComponent<PlayerAnimator>();
         _rigidBody = GetComponent<Rigidbody2D>();
-        _directionChanger = GetComponent<DirectionChanger>();
+        _directionChanger = GetComponent<RotationChanger>();
         _player = GetComponent<Player>();
-    }
-
-    private void OnEnable()
-    {
-        _inputService.MovingBtnPressed += Move;
-        _inputService.MovingBtnUp += StopMove;        
-    }
-
-    private void OnDisable()
-    {
-        _inputService.MovingBtnPressed -= Move;
-        _inputService.MovingBtnUp -= StopMove;        
     }
 
     public void Move()
     {
-        float axis = Input.GetAxis(Horizontal);
-        Vector3 target = transform.position + Vector3.one * axis;
-        Vector3 direction = target - transform.position;
-
-        if (_player.IsGrounded)
+        if (_player.IsGrounded && _player.IsAttack == false)
         {
-            _animator.SetSpeed(_speed);
-        }
+            float axis = Input.GetAxis(Horizontal);
+            Vector3 target = transform.position + Vector3.one * axis;
+            Vector3 direction = target - transform.position;
 
-        _directionChanger.ChangeDirection(direction);
-        _rigidBody.velocity = new Vector2(axis * _speed, _rigidBody.velocity.y);
+            _directionChanger.ChangeDirection(direction);
+            _rigidBody.velocity = new Vector2(axis * _speed, _rigidBody.velocity.y);
+
+            _animator.SetSpeed(_speed);
+            _player.SetSpeed(_speed);
+        }
     }
     
     public void StopMove()
     {
         _animator.SetSpeed(0);
+        _player.SetSpeed(0);
         _rigidBody.velocity = new Vector2(0, _rigidBody.velocity.y);
     }
 }
