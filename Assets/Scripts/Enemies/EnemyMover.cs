@@ -5,7 +5,7 @@ public class EnemyMover : MonoBehaviour
 {
     private RotationChanger _directionChanger;
     private EnemyAnimator _animator;
-    private Rigidbody2D _rigidBody;
+    private EnemyHealth _health;
 
     private Coroutine _coroutine;
     private Vector3 _target;
@@ -16,15 +16,20 @@ public class EnemyMover : MonoBehaviour
     {
         _directionChanger = GetComponent<RotationChanger>();
         _animator = GetComponent<EnemyAnimator>();
-        _rigidBody = GetComponent<Rigidbody2D>();
+        _health = GetComponent<EnemyHealth>();      
+    }
+
+    private void OnEnable()
+    {
+        _health.CharacterDied += StopMove;
     }
 
     private void OnDisable()
     {
+        _health.CharacterDied -= StopMove;
+
         if (_coroutine != null)
-        {
             StopCoroutine(_coroutine);
-        }
     }
 
     public void Move()
@@ -49,6 +54,14 @@ public class EnemyMover : MonoBehaviour
         _animator.SetSpeed(0);
         _isMoving = false;
         _coroutine = StartCoroutine(StayBeforeNextTarget(nextTarget, patrolWait));
+    }
+
+    private void StopMove()
+    {
+        _isMoving = false;
+
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
     }
 
     private IEnumerator StayBeforeNextTarget(Vector3 nextTarget, float patrolWait)

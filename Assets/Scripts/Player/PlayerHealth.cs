@@ -1,23 +1,18 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class PlayerHealth : Health
 {
-    [SerializeField] private int _maxHealth = 100;
-
-    private Collector _collector;
-
-    private int _health;
+     private Collector _collector;    
 
     private void Awake()
     {
-        _collector = GetComponent<Collector>();
+        _collector = GetComponent<Collector>();        
     }
 
     private void OnEnable()
     {
         _collector.PotionTaken += Heal;
-        _health = _maxHealth - 1;
     }
     private void OnDisable()
     {

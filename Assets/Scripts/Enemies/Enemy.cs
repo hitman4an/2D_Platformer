@@ -7,18 +7,27 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _patrolSpeed = 6f;
     [SerializeField] private float _chaserSpeed = 9f;
     [SerializeField] private EnemyGroundChecker _groundChecker;
+    [SerializeField] private ChaseTrigger _chaseTrigger;
     
     private Patrol _patrol;
     private EnemyMover _mover;
     private Chaser _chaser;    
-    private ChaseTrigger _chaseTrigger;
+    private EnemyHealth _health;
+    private EnemyAnimator _animator;
+    private CapsuleCollider2D _collider;
+    private Rigidbody2D _rigidBody;
+
+    private bool _isDead = false;
 
     private void Awake()
     {
         _patrol = GetComponent<Patrol>();
         _mover = GetComponent<EnemyMover>();
-        _chaser = GetComponent<Chaser>();        
-        _chaseTrigger = GetComponent<ChaseTrigger>();
+        _chaser = GetComponent<Chaser>();                
+        _health = GetComponent<EnemyHealth>();
+        _animator = GetComponent<EnemyAnimator>();
+        _collider = GetComponent<CapsuleCollider2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable()
@@ -26,12 +35,16 @@ public class Enemy : MonoBehaviour
         _chaseTrigger.OnPlayerSpotted += Chase;
         _chaseTrigger.OnPlayerGone += Patrol;
         _groundChecker.GroundEnded += Patrol;
+        _health.CharacterDied += Die;
+        _health.CharacterHurt += Hurt;
     }
     private void OnDisable()
     {
         _chaseTrigger.OnPlayerSpotted -= Chase;
         _chaseTrigger.OnPlayerGone -= Patrol;
         _groundChecker.GroundEnded -= Patrol;
+        _health.CharacterDied -= Die;
+        _health.CharacterHurt -= Hurt;
     }
 
     private void Start()
@@ -41,17 +54,42 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _mover.Move();
-        _patrol.CheckDestination();        
+        if (_isDead == false)
+        {
+            _mover.Move();
+            _patrol.CheckDestination();
+        }
+    }
+
+    public bool GetDead()
+    {
+        return _isDead;
     }
 
     private void Chase()
     {
-        _chaser.Chase(_chaserSpeed);
+        if (_isDead == false)
+            _chaser.Chase(_chaserSpeed);        
     }
 
     private void Patrol()
     {
-        _patrol.StartPatrol(_patrolSpeed);
+        if (_isDead == false)
+            _patrol.StartPatrol(_patrolSpeed);
+    }
+
+    private void Hurt()
+    {
+        _animator.SetHurt();
+    }
+
+    private void Die()
+    {
+        _isDead = true;
+        _animator.SetDead(true);
+                
+        _rigidBody.bodyType = RigidbodyType2D.Static;
+        _collider.enabled = false;
+        this.enabled = false;
     }
 }

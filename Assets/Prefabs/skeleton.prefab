@@ -1,5 +1,95 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5486471592088523714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3256125084546243223}
+  - component: {fileID: 1299793445705261440}
+  - component: {fileID: 4151522378530669725}
+  m_Layer: 7
+  m_Name: ChaseTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3256125084546243223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5486471592088523714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.082, y: 0.76, z: 0}
+  m_LocalScale: {x: 2.9875, y: 1.0625, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811282405699469702}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1299793445705261440
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5486471592088523714}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.13324538, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2664902, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &4151522378530669725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5486471592088523714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb86e9519282cd4eb3eaafd463ee0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8658437039164061603
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +318,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: a3779e50bc9323e41946f7b5517235c6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4760404152315219350}
+    - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: a3779e50bc9323e41946f7b5517235c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3256125084546243223}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: a3779e50bc9323e41946f7b5517235c6, type: 3}
       insertIndex: -1
@@ -238,9 +331,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: a3779e50bc9323e41946f7b5517235c6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 544925538730014745}
-    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: a3779e50bc9323e41946f7b5517235c6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -4612291032646354466}
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: a3779e50bc9323e41946f7b5517235c6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6677053993410678579}
@@ -261,7 +351,7 @@ PrefabInstance:
       addedObject: {fileID: 4901959975400441206}
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: a3779e50bc9323e41946f7b5517235c6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3904286373810379946}
+      addedObject: {fileID: 2590781522395011194}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: a3779e50bc9323e41946f7b5517235c6, type: 3}
 --- !u!4 &811282405699469702 stripped
 Transform:
@@ -356,51 +446,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.15534091, y: 0.9552067}
   m_Size: {x: 0.96946, y: 1.6016144}
   m_Direction: 0
---- !u!61 &-4612291032646354466
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984496272168884709}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &6677053993410678579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,7 +526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
---- !u!114 &3904286373810379946
+--- !u!114 &2590781522395011194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -490,6 +535,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1984496272168884709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cb86e9519282cd4eb3eaafd463ee0b3, type: 3}
+  m_Script: {fileID: 11500000, guid: a4b677b2ca4b41541b4f840f185e665e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 100

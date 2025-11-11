@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     private PlayerMover _mover;
     private Jumper _jumper;
     private InputService _inputService;
-    private PlayerAttacker _attacker;
+    private Attacker _attacker;
+    private Health _health;
        
     private void Awake()
     {
@@ -22,7 +23,8 @@ public class Player : MonoBehaviour
         _mover = GetComponent<PlayerMover>();
         _jumper = GetComponent<Jumper>();
         _inputService = GetComponent<InputService>();
-        _attacker = GetComponent<PlayerAttacker>();
+        _attacker = GetComponent<Attacker>();
+        _health = GetComponent<Health>();
     }
     private void OnEnable()
     {
@@ -32,6 +34,8 @@ public class Player : MonoBehaviour
         _inputService.MovingBtnUp += StopMove;
         _inputService.AttackBtnPressed += Attack;
         _attacker.AttackFinished += FinishAttack;
+        _health.CharacterDied += Die;
+        _health.CharacterHurt += Hurt;
     }
 
     private void OnDisable()
@@ -42,6 +46,8 @@ public class Player : MonoBehaviour
         _inputService.MovingBtnUp -= StopMove;
         _inputService.AttackBtnPressed -= Attack;
         _attacker.AttackFinished -= FinishAttack;
+        _health.CharacterDied -= Die;
+        _health.CharacterHurt -= Hurt;
     }
 
     private void Update()
@@ -53,6 +59,7 @@ public class Player : MonoBehaviour
     {
         Speed = speed;
     }
+
     private void Move() 
     {
         _mover.Move();
@@ -78,6 +85,16 @@ public class Player : MonoBehaviour
             IsAttack = true;
             _attacker.Attack();
         }
+    }
+
+    private void Hurt()
+    {
+        _animator.SetHurt();
+    }
+
+    private void Die()
+    {
+        gameObject.SetActive(false);
     }
 
     private void Grounded(bool value)

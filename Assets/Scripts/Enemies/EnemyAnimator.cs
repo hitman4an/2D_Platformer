@@ -2,25 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAnimator : MonoBehaviour
+public class EnemyAnimator : CharacterAnimator
 {
-    private Animator _animator;
-
-    public void SetSpeed(float value)
+    public void SetDead(bool value)
     {
-        _animator.SetFloat(PlayerAnimatorData.Params.Speed, value);
+        _animator.SetBool(EnemyAnimatorData.Params.IsDead, value);
     }
 
-    private void Awake()
+    public class EnemyAnimatorData: CharacterAnimatorData
     {
-        _animator = GetComponent<Animator>();
-    }
-
-    public static class PlayerAnimatorData
-    {
-        public static class Params
+        new public class Params: CharacterAnimatorData.Params
         {
-            public static readonly int Speed = Animator.StringToHash(nameof(Speed));
+            public static readonly int IsDead = Animator.StringToHash(nameof(IsDead));
         }
     }
 }

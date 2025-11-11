@@ -14,7 +14,7 @@ public class ItemsSpawner : MonoBehaviour
         SpawnItems();
     }
 
-    public void ItemUsed(GameItem item)
+    public void ItemUsed(GameItem item, float delay = 0)
     {
         if (_ourItems.Contains(item))
         {
@@ -22,7 +22,7 @@ public class ItemsSpawner : MonoBehaviour
             item.ItemUsed -= ItemUsed;
         }
 
-        Destroy(item.gameObject);
+        Destroy(item.gameObject, delay);
     }
 
     private void SpawnItems()
