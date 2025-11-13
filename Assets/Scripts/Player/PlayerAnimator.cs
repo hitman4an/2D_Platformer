@@ -5,14 +5,14 @@ using UnityEngine.Rendering;
 
 public class PlayerAnimator : CharacterAnimator
 {
-      public void SetGrounded(bool value)
-    {
-        _animator.SetBool(PlayerAnimatorData.Params.IsGrounded, value);
-    }
-
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+    }
+
+    public void SetGrounded(bool value)
+    {
+        _animator.SetBool(PlayerAnimatorData.Params.IsGrounded, value);
     }
 
     public class PlayerAnimatorData: CharacterAnimatorData

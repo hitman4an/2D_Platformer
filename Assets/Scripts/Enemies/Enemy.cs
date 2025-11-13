@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour
     private EnemyAnimator _animator;
     private CapsuleCollider2D _collider;
     private Rigidbody2D _rigidBody;
+    private EnemyAttacker _attacker;
 
     private bool _isDead = false;
 
@@ -28,6 +30,7 @@ public class Enemy : MonoBehaviour
         _animator = GetComponent<EnemyAnimator>();
         _collider = GetComponent<CapsuleCollider2D>();
         _rigidBody = GetComponent<Rigidbody2D>();
+        _attacker = GetComponent<EnemyAttacker>();
     }
 
     private void OnEnable()
@@ -57,13 +60,9 @@ public class Enemy : MonoBehaviour
         if (_isDead == false)
         {
             _mover.Move();
-            _patrol.CheckDestination();
+            _patrol.CheckDestination();            
+            _attacker.CheckAttackDistance();
         }
-    }
-
-    public bool GetDead()
-    {
-        return _isDead;
     }
 
     private void Chase()

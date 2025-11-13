@@ -3,69 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttacker : MonoBehaviour
+public class EnemyAttacker : Attacker
 {
-    [SerializeField] private float _attackCooldown = 0.4f;
-    [SerializeField] private Transform _attackPoint;
+    private EnemyMover _mover;
+    private Health _target;
 
-    [SerializeField] private float _attackRadius = 5f;
-    [SerializeField] private int _attackDamage = 20;
-
-    [SerializeField] private LayerMask _playerLayers;
-
-    public event Action AttackFinished;
-
-    private EnemyAnimator _animator;
-
-    private bool _canAttack = true;
-    private Coroutine _coroutine;
-
-    private void Awake()
+    public override void Attack()
     {
-        _animator = GetComponent<EnemyAnimator>();
+        _canAttack = false;
+
+        _mover.StopMove();
+        _animator.SetSpeed(0);
+        _animator.SetAttack();
     }
 
-    private void OnDisable()
-    {
-        if (_coroutine != null)
-            StopCoroutine(_coroutine);
-    }
-
-    public void Attack()
+    public void CheckAttackDistance()
     {
         if (_canAttack)
         {
-            _animator.SetAttack();
-            _canAttack = false;
+            Collider2D[] hitOpponents = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRadius, _opponentLayer);
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRadius, _playerLayers);
-
-            foreach (Collider2D enemy in hitEnemies)
+            foreach (Collider2D opponent in hitOpponents)
             {
-                enemy.GetComponent<Health>().TakeDamage(_attackDamage);
-            }
+                _target = opponent.GetComponent<Health>();
 
-            _coroutine = StartCoroutine(AttackCooldown());
+                if (_target != null)
+                {
+                    Attack();
+                }
+            }
         }
     }
 
-    private IEnumerator AttackCooldown()
+    protected override void Awake()
     {
-        yield return new WaitForSeconds(_attackCooldown);
-
-        _canAttack = true;
+        base.Awake();
+        _mover = GetComponent<EnemyMover>();
     }
 
-    private void FinishPlayerAttack()
+    protected override void CommitDamage()
     {
-        AttackFinished?.Invoke();
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (_attackPoint != null)
+        if (_target != null)
         {
-            Gizmos.DrawWireSphere(_attackPoint.position, _attackRadius);
+            _target.TakeDamage(_attackDamage);
         }
     }
 }

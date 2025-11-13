@@ -5,10 +5,10 @@ using UnityEngine;
 
 public abstract class GameItem : MonoBehaviour
 {
-    public event Action<GameItem, float> ItemUsed;
+    public event Action<GameItem> ItemUsed;
 
-    public void Used(float delay = 0)
+    public void Used()
     {
-        ItemUsed?.Invoke(this, delay);
+        ItemUsed?.Invoke(this);
     }
 }

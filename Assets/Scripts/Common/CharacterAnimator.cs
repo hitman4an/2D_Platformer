@@ -7,6 +7,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 {
     protected Animator _animator;
 
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
     public void SetSpeed(float value)
     {
         _animator.SetFloat(CharacterAnimatorData.Params.Speed, value);
@@ -20,11 +25,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     public void SetHurt()
     {
         _animator.SetTrigger(CharacterAnimatorData.Params.Hurt);
-    }
-
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
     }
 
     public class CharacterAnimatorData

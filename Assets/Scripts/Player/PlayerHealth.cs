@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerHealth : Health
 {
-     private Collector _collector;    
+    private Collector _collector;    
 
     private void Awake()
     {

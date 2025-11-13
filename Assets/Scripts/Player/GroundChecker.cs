@@ -21,6 +21,7 @@ public class GroundChecker : MonoBehaviour
     {
         _coroutine = StartCoroutine(CheckGrounded());
     }
+
     private void OnDisable()
     {
         StopCoroutine(_coroutine);

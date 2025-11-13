@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public bool IsGrounded { get; private set; }
-    public bool IsAttack { get; private set; }
+    public bool IsGrounded { get; private set; }    
     public float Speed { get; private set; }
     
-
     [SerializeField] private GroundChecker _groundChecker;
 
     private PlayerAnimator _animator;    
@@ -33,7 +31,6 @@ public class Player : MonoBehaviour
         _inputService.JumpBtnDown += Jump;
         _inputService.MovingBtnUp += StopMove;
         _inputService.AttackBtnPressed += Attack;
-        _attacker.AttackFinished += FinishAttack;
         _health.CharacterDied += Die;
         _health.CharacterHurt += Hurt;
     }
@@ -45,7 +42,6 @@ public class Player : MonoBehaviour
         _inputService.JumpBtnDown -= Jump;
         _inputService.MovingBtnUp -= StopMove;
         _inputService.AttackBtnPressed -= Attack;
-        _attacker.AttackFinished -= FinishAttack;
         _health.CharacterDied -= Die;
         _health.CharacterHurt -= Hurt;
     }
@@ -77,12 +73,11 @@ public class Player : MonoBehaviour
 
     private void Attack()
     {
-        if (IsGrounded && IsAttack == false)
+        if (IsGrounded)
         {
             if (Speed > 0)
                 _mover.StopMove();
 
-            IsAttack = true;
             _attacker.Attack();
         }
     }
@@ -109,10 +104,5 @@ public class Player : MonoBehaviour
             IsGrounded = value;
             _animator.SetGrounded(value);
         }
-    }
-
-    private void FinishAttack()
-    {
-        IsAttack = false;
     }
 }

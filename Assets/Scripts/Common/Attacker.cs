@@ -3,24 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attacker : MonoBehaviour
+public abstract class Attacker : MonoBehaviour
 {
-    [SerializeField] private float _attackCooldown = 0.4f;
-    [SerializeField] private Transform _attackPoint;
+    [SerializeField] protected float _attackCooldown = 0.4f;
+    [SerializeField] protected Transform _attackPoint;
 
-    [SerializeField] private float _attackRadius = 5f;
-    [SerializeField] private int _attackDamage = 50;
+    [SerializeField] protected float _attackRadius = 5f;
+    [SerializeField] protected int _attackDamage = 50;
 
-    [SerializeField] private LayerMask _opponentLayers;
-    
-    public event Action AttackFinished;
+    [SerializeField] protected LayerMask _opponentLayer;
 
-    private CharacterAnimator _animator;
+    protected CharacterAnimator _animator;
 
-    private bool _canAttack = true;
-    private Coroutine _coroutine;
+    protected bool _canAttack = true;
+    protected Coroutine _coroutine;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _animator = GetComponent<CharacterAnimator>();
     }
@@ -31,46 +29,26 @@ public class Attacker : MonoBehaviour
             StopCoroutine(_coroutine);
     }
 
-    public void Attack()
-    {
-        if (_canAttack)
-        {
-            _animator.SetAttack();
-            _canAttack = false;
-
-            Collider2D[] hitOpponents = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRadius, _opponentLayers);
-
-            foreach (Collider2D opponent in hitOpponents)
-            {
-                Health health = opponent.GetComponent<Health>();
-
-                if (health)
-                {
-                    opponent.GetComponent<Health>().TakeDamage(_attackDamage);
-                }
-            }
-
-            _coroutine = StartCoroutine(AttackCooldown());
-        }
-    }
-
-    private IEnumerator AttackCooldown()
-    {
-        yield return new WaitForSeconds(_attackCooldown);
-
-        _canAttack = true;
-    }
-
-    private void FinishPlayerAttack()
-    {
-        AttackFinished?.Invoke();
-    }
-
     private void OnDrawGizmosSelected()
     {
         if (_attackPoint != null)
         {
             Gizmos.DrawWireSphere(_attackPoint.position, _attackRadius);
         }
+    }
+
+    public abstract void Attack();
+    protected abstract void CommitDamage();
+
+    protected IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(_attackCooldown);
+
+        _canAttack = true;        
+    }
+
+    private void FinishAttack()
+    {
+        _coroutine = StartCoroutine(AttackCooldown());
     }
 }

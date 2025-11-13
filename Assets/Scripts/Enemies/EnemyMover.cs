@@ -56,7 +56,7 @@ public class EnemyMover : MonoBehaviour
         _coroutine = StartCoroutine(StayBeforeNextTarget(nextTarget, patrolWait));
     }
 
-    private void StopMove()
+    public void StopMove()
     {
         _isMoving = false;
 

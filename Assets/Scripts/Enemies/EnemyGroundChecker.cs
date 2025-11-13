@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
 public class EnemyGroundChecker : MonoBehaviour
 {
     public event Action GroundEnded;

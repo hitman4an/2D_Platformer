@@ -23,7 +23,7 @@ public class PlayerMover : MonoBehaviour
 
     public void Move()
     {
-        if (_player.IsGrounded && _player.IsAttack == false)
+        if (_player.IsGrounded)
         {
             float axis = Input.GetAxis(Horizontal);
             Vector3 target = transform.position + Vector3.one * axis;

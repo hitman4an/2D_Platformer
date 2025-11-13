@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class Coin : GameItem
 {
-    private const float AnimationTime = 2f;
-
     private static readonly int Collect = CoinAnimator.PlayerAnimatorData.Params.Collect;
 
     private CoinAnimator _animator;
@@ -29,7 +26,6 @@ public class Coin : GameItem
     public void Take()
     {
         _collider.enabled = false;
-        _animator.PlayAnimation(Collect);
-        this.Used(AnimationTime);
+        _animator.PlayAnimation(Collect);        
     }
 }
