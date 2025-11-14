@@ -11,7 +11,7 @@ public class PlayerAttacker : Attacker
         _animator.SetAttack();
     }
 
-    protected override void CommitDamage()
+    public override void CommitDamage()
     {
         Collider2D[] hitOpponents = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRadius, _opponentLayer);
 

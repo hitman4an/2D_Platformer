@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
     public float Speed { get; private set; }
     
     [SerializeField] private GroundChecker _groundChecker;
-
-    private PlayerAnimator _animator;    
+    [SerializeField] private PlayerAnimator _animator;    
+    
     private PlayerMover _mover;
     private Jumper _jumper;
     private InputService _inputService;
@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
        
     private void Awake()
     {
-        _animator = GetComponent<PlayerAnimator>();
         _mover = GetComponent<PlayerMover>();
         _jumper = GetComponent<Jumper>();
         _inputService = GetComponent<InputService>();

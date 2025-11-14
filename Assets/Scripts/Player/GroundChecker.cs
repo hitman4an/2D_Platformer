@@ -24,7 +24,8 @@ public class GroundChecker : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(_coroutine);
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
     }
 
     private IEnumerator CheckGrounded()

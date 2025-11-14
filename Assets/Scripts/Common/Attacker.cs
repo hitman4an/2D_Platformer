@@ -12,6 +12,7 @@ public abstract class Attacker : MonoBehaviour
     [SerializeField] protected int _attackDamage = 50;
 
     [SerializeField] protected LayerMask _opponentLayer;
+    [SerializeField] protected AnimationEvents _animationEvents;
 
     protected CharacterAnimator _animator;
 
@@ -20,11 +21,20 @@ public abstract class Attacker : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _animator = GetComponent<CharacterAnimator>();
+        _animator = _animationEvents.GetComponent<CharacterAnimator>();
+    }
+
+    private void OnEnable()
+    {
+        _animationEvents.FinishAttack += FinishAttack;
+        _animationEvents.CommitDamage += CommitDamage;
     }
 
     private void OnDisable()
     {
+        _animationEvents.FinishAttack -= FinishAttack;
+        _animationEvents.CommitDamage -= CommitDamage;
+
         if (_coroutine != null)
             StopCoroutine(_coroutine);
     }
@@ -38,7 +48,7 @@ public abstract class Attacker : MonoBehaviour
     }
 
     public abstract void Attack();
-    protected abstract void CommitDamage();
+    public abstract void CommitDamage();
 
     protected IEnumerator AttackCooldown()
     {

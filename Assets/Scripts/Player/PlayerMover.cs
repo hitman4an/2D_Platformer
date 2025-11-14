@@ -6,16 +6,15 @@ public class PlayerMover : MonoBehaviour
 {
     private const string Horizontal = "Horizontal";
 
-    [SerializeField] private float _speed;      
+    [SerializeField] private float _speed;
+    [SerializeField] private PlayerAnimator _animator;
 
-    private PlayerAnimator _animator;
     private RotationChanger _directionChanger;
     private Rigidbody2D _rigidBody;
     private Player _player;
         
     private void Awake()
     {
-        _animator = GetComponent<PlayerAnimator>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _directionChanger = GetComponent<RotationChanger>();
         _player = GetComponent<Player>();

@@ -9,12 +9,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _chaserSpeed = 9f;
     [SerializeField] private EnemyGroundChecker _groundChecker;
     [SerializeField] private ChaseTrigger _chaseTrigger;
-    
+    [SerializeField] private EnemyAnimator _animator;
+
     private Patrol _patrol;
     private EnemyMover _mover;
     private Chaser _chaser;    
     private EnemyHealth _health;
-    private EnemyAnimator _animator;
+    
     private CapsuleCollider2D _collider;
     private Rigidbody2D _rigidBody;
     private EnemyAttacker _attacker;
@@ -26,8 +27,7 @@ public class Enemy : MonoBehaviour
         _patrol = GetComponent<Patrol>();
         _mover = GetComponent<EnemyMover>();
         _chaser = GetComponent<Chaser>();                
-        _health = GetComponent<EnemyHealth>();
-        _animator = GetComponent<EnemyAnimator>();
+        _health = GetComponent<EnemyHealth>();        
         _collider = GetComponent<CapsuleCollider2D>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _attacker = GetComponent<EnemyAttacker>();
@@ -65,10 +65,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Chase()
+    private void Chase(Player player)
     {
         if (_isDead == false)
-            _chaser.Chase(_chaserSpeed);        
+            _chaser.Chase(player, _chaserSpeed);
     }
 
     private void Patrol()
@@ -86,6 +86,7 @@ public class Enemy : MonoBehaviour
     {
         _isDead = true;
         _animator.SetDead(true);
+        _mover.StopMove();
                 
         _rigidBody.bodyType = RigidbodyType2D.Static;
         _collider.enabled = false;

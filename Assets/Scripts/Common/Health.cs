@@ -19,14 +19,11 @@ public abstract class Health : MonoBehaviour
     {
         _health -= damage;
 
+        CharacterHurt?.Invoke();
+
         if (_health <= 0)
         {
-            CharacterHurt?.Invoke();
             CharacterDied?.Invoke();
-        }
-        else
-        {
-            CharacterHurt?.Invoke();
         }
     }
 }

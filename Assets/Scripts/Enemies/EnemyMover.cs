@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
-    private RotationChanger _directionChanger;
-    private EnemyAnimator _animator;
-    private EnemyHealth _health;
+    [SerializeField] private EnemyAnimator _animator;
 
+    private RotationChanger _directionChanger;
+        
     private Coroutine _coroutine;
     private Vector3 _target;
     private bool _isMoving;
@@ -14,20 +14,11 @@ public class EnemyMover : MonoBehaviour
     
     private void Awake()
     {
-        _directionChanger = GetComponent<RotationChanger>();
-        _animator = GetComponent<EnemyAnimator>();
-        _health = GetComponent<EnemyHealth>();      
-    }
-
-    private void OnEnable()
-    {
-        _health.CharacterDied += StopMove;
+        _directionChanger = GetComponent<RotationChanger>();        
     }
 
     private void OnDisable()
     {
-        _health.CharacterDied -= StopMove;
-
         if (_coroutine != null)
             StopCoroutine(_coroutine);
     }

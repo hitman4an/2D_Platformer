@@ -7,6 +7,12 @@ public class EnemyAttacker : Attacker
 {
     private EnemyMover _mover;
     private Health _target;
+    
+    protected override void Awake()
+    {
+        base.Awake();
+        _mover = GetComponent<EnemyMover>();
+    }
 
     public override void Attack()
     {
@@ -15,6 +21,13 @@ public class EnemyAttacker : Attacker
         _mover.StopMove();
         _animator.SetSpeed(0);
         _animator.SetAttack();
+    }
+    public override void CommitDamage()
+    {
+        if (_target != null)
+        {
+            _target.TakeDamage(_attackDamage);
+        }
     }
 
     public void CheckAttackDistance()
@@ -32,20 +45,6 @@ public class EnemyAttacker : Attacker
                     Attack();
                 }
             }
-        }
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-        _mover = GetComponent<EnemyMover>();
-    }
-
-    protected override void CommitDamage()
-    {
-        if (_target != null)
-        {
-            _target.TakeDamage(_attackDamage);
         }
     }
 }
