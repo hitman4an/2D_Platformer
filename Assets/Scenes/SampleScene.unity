@@ -5375,6 +5375,7 @@ MonoBehaviour:
   _chaserSpeed: 3
   _groundChecker: {fileID: 5601757331294789257}
   _chaseTrigger: {fileID: 444807576}
+  _animator: {fileID: 557260029}
 --- !u!114 &665567856309998050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8321,6 +8322,7 @@ MonoBehaviour:
   _chaserSpeed: 3
   _groundChecker: {fileID: 4999832721878034321}
   _chaseTrigger: {fileID: 2543279070935808707}
+  _animator: {fileID: 1944290687}
 --- !u!212 &5540674083160774016
 SpriteRenderer:
   m_ObjectHideFlags: 0
