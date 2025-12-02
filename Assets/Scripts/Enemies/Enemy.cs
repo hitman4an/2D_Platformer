@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     private Patrol _patrol;
     private EnemyMover _mover;
     private Chaser _chaser;    
-    private EnemyHealth _health;
+    private Health _health;
     
     private CapsuleCollider2D _collider;
     private Rigidbody2D _rigidBody;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
         _patrol = GetComponent<Patrol>();
         _mover = GetComponent<EnemyMover>();
         _chaser = GetComponent<Chaser>();                
-        _health = GetComponent<EnemyHealth>();        
+        _health = GetComponent<Health>();        
         _collider = GetComponent<CapsuleCollider2D>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _attacker = GetComponent<EnemyAttacker>();

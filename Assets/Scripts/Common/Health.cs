@@ -1,18 +1,44 @@
 using System;
 using UnityEngine;
 
-public abstract class Health : MonoBehaviour
+public class Health : MonoBehaviour, IDamageable
 {
-    [SerializeField] protected int _maxHealth = 100;
+    [SerializeField] private int _maxHealth = 100;
 
     public event Action CharacterDied;
     public event Action CharacterHurt;
+    public event Action<float> HealthChanged;
 
-    protected int _health;
+    public int MaxHealth { get; private set; }
+
+    private int _health;
+    private Collector _collector;
+
+    private void Awake()
+    {
+        _collector = GetComponent<Collector>();
+        MaxHealth = _maxHealth;
+    }
+
+    private void OnEnable()
+    {
+        if (_collector != null)
+        {
+            _collector.PotionTaken += Heal;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_collector != null)
+        {
+            _collector.PotionTaken -= Heal;
+        }
+    }
 
     private void Start()
     {
-        _health = _maxHealth;
+        _health = MaxHealth;
     }
 
     public void TakeDamage(int damage)
@@ -23,7 +49,45 @@ public abstract class Health : MonoBehaviour
 
         if (_health <= 0)
         {
+            _health = 0;
             CharacterDied?.Invoke();
         }
+
+        HealthChanged?.Invoke(_health);
+    }
+
+    public void Heal(Potion potion)
+    {
+        if (_health == MaxHealth)
+        {
+            return;
+        }
+
+        _health += potion.HealValue;
+
+        if (_health > MaxHealth)
+        {
+            _health = MaxHealth;
+        }
+
+        HealthChanged?.Invoke(_health);
+        potion.Used();
+    }
+
+    public void Heal(int value)
+    {
+        if (_health == MaxHealth)
+        {
+            return;
+        }
+
+        _health += value;
+
+        if (_health > MaxHealth)
+        {
+            _health = MaxHealth;
+        }
+
+        HealthChanged?.Invoke(_health);
     }
 }
