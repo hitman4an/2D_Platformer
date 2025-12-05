@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Collector : MonoBehaviour
@@ -8,7 +6,7 @@ public class Collector : MonoBehaviour
     public event Action<Potion> PotionTaken;
     
     private int _count = 0;
-
+    
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.TryGetComponent<Coin>(out Coin coin))

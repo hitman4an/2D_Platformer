@@ -5,35 +5,31 @@ public class Health : MonoBehaviour, IDamageable
 {
     [SerializeField] private int _maxHealth = 100;
 
-    public event Action CharacterDied;
-    public event Action CharacterHurt;
     public event Action<float> HealthChanged;
+    public event Action CharacterHurt;
+    public event Action CharacterDied;
 
     public int MaxHealth { get; private set; }
 
     private int _health;
+
     private Collector _collector;
 
     private void Awake()
     {
-        _collector = GetComponent<Collector>();
         MaxHealth = _maxHealth;
+        _collector = GetComponent<Collector>();
     }
 
     private void OnEnable()
     {
-        if (_collector != null)
-        {
-            _collector.PotionTaken += Heal;
-        }
+        if (_collector)
+            _collector.PotionTaken += TakePotion;
     }
-
     private void OnDisable()
     {
-        if (_collector != null)
-        {
-            _collector.PotionTaken -= Heal;
-        }
+        if (_collector)
+            _collector.PotionTaken -= TakePotion;
     }
 
     private void Start()
@@ -43,51 +39,43 @@ public class Health : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        _health -= damage;
-
-        CharacterHurt?.Invoke();
-
-        if (_health <= 0)
-        {
-            _health = 0;
-            CharacterDied?.Invoke();
-        }
-
-        HealthChanged?.Invoke(_health);
-    }
-
-    public void Heal(Potion potion)
-    {
-        if (_health == MaxHealth)
+        if (damage < 0)
         {
             return;
         }
 
-        _health += potion.HealValue;
-
-        if (_health > MaxHealth)
-        {
-            _health = MaxHealth;
-        }
+        _health = Mathf.Clamp(_health -= damage, 0, MaxHealth);
 
         HealthChanged?.Invoke(_health);
-        potion.Used();
+
+        if (_health > 0)
+        {
+            CharacterHurt?.Invoke();
+        }
+        else
+        {
+            CharacterDied?.Invoke();
+        }
     }
 
     public void Heal(int value)
     {
-        if (_health == MaxHealth)
+        if (value < 0)
         {
             return;
         }
 
-        _health += value;
-
-        if (_health > MaxHealth)
-        {
-            _health = MaxHealth;
-        }
+        _health = Mathf.Clamp(_health += value, 0, MaxHealth);
 
         HealthChanged?.Invoke(_health);
+    }
+
+    private void TakePotion(Potion potion)
+    {
+        if (_health != MaxHealth)
+        {
+            Heal(potion.HealValue);
+            potion.Used();
+        }
     }
 }

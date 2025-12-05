@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyAnimator : CharacterAnimator
 {
-    public void SetDead(bool value)
+    public void SetDead()
     {
-        _animator.SetBool(EnemyAnimatorData.Params.IsDead, value);
+        _animator.SetTrigger(EnemyAnimatorData.Params.IsDead);
     }
 
     public class EnemyAnimatorData: CharacterAnimatorData

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Timeline;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -86,7 +83,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         _isDead = true;
-        _animator.SetDead(true);
+        _animator.SetDead();
         _mover.StopMove();
                 
         _rigidBody.bodyType = RigidbodyType2D.Static;
