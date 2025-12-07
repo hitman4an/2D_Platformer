@@ -21,7 +21,7 @@ public class SmoothSlider : HealthSlider
             return;
         }
         
-        float sliderValue = newValue / Health.MaxHealth;
+        float sliderValue = newValue / Health.MaxValue;
 
         _coroutine = StartCoroutine(ChangeValue(Mathf.Clamp(sliderValue, _slider.minValue, _slider.maxValue)));
     }

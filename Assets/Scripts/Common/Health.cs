@@ -3,52 +3,38 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _maxHealth = 100;
+    [SerializeField] private float _maxValue = 100;
 
     public event Action<float> HealthChanged;
     public event Action CharacterHurt;
     public event Action CharacterDied;
 
-    public int MaxHealth { get; private set; }
+    public float MaxValue { get; private set; }
 
-    private int _health;
-
-    private Collector _collector;
+    private float _value;
 
     private void Awake()
     {
-        MaxHealth = _maxHealth;
-        _collector = GetComponent<Collector>();
-    }
-
-    private void OnEnable()
-    {
-        if (_collector)
-            _collector.PotionTaken += TakePotion;
-    }
-    private void OnDisable()
-    {
-        if (_collector)
-            _collector.PotionTaken -= TakePotion;
+        MaxValue = _maxValue;
     }
 
     private void Start()
     {
-        _health = MaxHealth;
+        _value = MaxValue;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (damage < 0)
         {
             return;
         }
 
-        _health = Mathf.Clamp(_health -= damage, 0, MaxHealth);
+        _value = Mathf.Clamp(_value -= damage, 0, MaxValue);
 
-        HealthChanged?.Invoke(_health);
+        HealthChanged?.Invoke(_value);
 
-        if (_health > 0)
+        if (_value > 0)
         {
             CharacterHurt?.Invoke();
         }
@@ -58,21 +44,21 @@ public class Health : MonoBehaviour, IDamageable
         }
     }
 
-    public void Heal(int value)
+    public void Heal(float value)
     {
         if (value < 0)
         {
             return;
         }
 
-        _health = Mathf.Clamp(_health += value, 0, MaxHealth);
+        _value = Mathf.Clamp(_value += value, 0, MaxValue);
 
-        HealthChanged?.Invoke(_health);
+        HealthChanged?.Invoke(_value);
     }
 
-    private void TakePotion(Potion potion)
+    public void TakePotion(Potion potion)
     {
-        if (_health != MaxHealth)
+        if (_value != MaxValue)
         {
             Heal(potion.HealValue);
             potion.Used();

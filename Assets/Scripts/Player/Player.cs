@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
     public float Speed { get; private set; }
     
     [SerializeField] private GroundChecker _groundChecker;
-    [SerializeField] private PlayerAnimator _animator;    
+    [SerializeField] private PlayerAnimator _animator;   
+    [SerializeField] private VampireSkill _skill;   
     
     private PlayerMover _mover;
     private Jumper _jumper;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
         _inputService.JumpBtnDown += Jump;
         _inputService.MovingBtnUp += StopMove;
         _inputService.AttackBtnPressed += Attack;
+        _inputService.SkillBtnPressed += VampireActivate;
         _health.CharacterDied += Die;
         _health.CharacterHurt += Hurt;
     }
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
         _inputService.JumpBtnDown -= Jump;
         _inputService.MovingBtnUp -= StopMove;
         _inputService.AttackBtnPressed -= Attack;
+        _inputService.SkillBtnPressed += VampireActivate;
         _health.CharacterDied -= Die;
         _health.CharacterHurt -= Hurt;
     }
@@ -89,6 +92,11 @@ public class Player : MonoBehaviour
     private void Die()
     {
         gameObject.SetActive(false);
+    }
+
+    private void VampireActivate()
+    {
+        _skill.Activate();
     }
 
     private void Grounded(bool value)

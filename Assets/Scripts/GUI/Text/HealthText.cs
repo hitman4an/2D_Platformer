@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine;
 
 public class HealthText: HealthGUI
 {
@@ -11,11 +12,11 @@ public class HealthText: HealthGUI
 
     private void Start()
     {
-        _text.text = $"{ Health.MaxHealth}/{Health.MaxHealth }";
+        _text.text = $"{ Health.MaxValue}/{Health.MaxValue }";
     }
 
     public override void ChangeHealthValue(float newValue)
     {
-        _text.text = $"{newValue}/{Health.MaxHealth}";
+        _text.text = $"{Mathf.RoundToInt(newValue)}/{Health.MaxValue}";
     }
 }

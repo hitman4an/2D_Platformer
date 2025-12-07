@@ -19,7 +19,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     public void SetAttack()
     {
-        _animator.SetTrigger(CharacterAnimatorData.Params.Attack);
+        _animator.SetTrigger(CharacterAnimatorData.Params.Attack);        
     }
 
     public void SetHurt()

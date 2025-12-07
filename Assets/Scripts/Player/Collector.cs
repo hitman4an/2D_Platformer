@@ -3,10 +3,15 @@ using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
-    public event Action<Potion> PotionTaken;
-    
     private int _count = 0;
-    
+
+    private Health _health;
+
+    private void Awake()
+    {
+        _health = GetComponent<Health>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.TryGetComponent<Coin>(out Coin coin))
@@ -17,7 +22,7 @@ public class Collector : MonoBehaviour
 
         if (collider.TryGetComponent<Potion>(out Potion potion))
         {
-            PotionTaken?.Invoke(potion);
+            _health.TakePotion(potion);
         }
     }
 }

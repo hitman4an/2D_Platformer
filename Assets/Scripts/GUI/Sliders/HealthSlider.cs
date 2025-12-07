@@ -20,7 +20,7 @@ public class HealthSlider : HealthGUI
     
     public override void ChangeHealthValue(float newValue)
     {
-        float sliderValue = newValue / Health.MaxHealth;
+        float sliderValue = newValue / Health.MaxValue;
         
         if (sliderValue > _slider.maxValue)
         {

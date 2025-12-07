@@ -7,8 +7,11 @@ public class PlayerAttacker : Attacker
 {
     public override void Attack()
     {
-        _canAttack = false;
-        _animator.SetAttack();
+        if (_canAttack)
+        {
+            _canAttack = false;
+            _animator.SetAttack();
+        }
     }
 
     public override void CommitDamage()
